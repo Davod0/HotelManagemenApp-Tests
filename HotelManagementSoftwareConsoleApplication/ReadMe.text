@@ -1,0 +1,71 @@
+_________________________________________________________________________________________
+Ett system för ett hotel, där lagras information om ett hotell i en databass,
+sedan data från databasen hanteras  på olika sätt i C# programmet så som hämta,
+uppdatera, radera, söka och soretarea informationen  på olika sätt.
+_________________________________________________________________________________________
+
+
+
+
+
+____________________________Beskrivning om olika viktiga klasser/metoder/interfaces_______________________________________
+
+
+___________________________________________________________________________________________________________________________
+public class HotelCatalogue
+ Denna klasss är logiken i vår program och denna klass har connection med klassen som hanterar detabasen och med klassen...
+ ...som hanterar UI.
+
+Denna hotelCatalogue klass säger varje klass som hämtar data från en hotell databas ska implementera interfacet ISQLConnection...
+...för att kopplas till Catalogue klassen (logiken) för att sedan kunna köras i detta program.
+
+___________________________________________________________________________________________________________________________
+OpenDBConnection()
+
+En metod som kontrollerar om connection med databasen är öppet annars...
+...öppnar denna metod kontakten med databasen geonm funktionen open().
+
+
+
+_____________________________________________________________________________________________________________________________
+public interface ISQLRepository
+
+Detta interface möjlig gör att vi kan byta databas och koppla en annan hotel databs till vårt program genom att bara...
+...implementera detta interface i klassen som hanterar databasen.
+
+ISQLRepository interfacet är för att varje klass som hämtar data från en hotell databas och vill köras i detta program...
+...ska implementeras ISQLRepository interfacet och dess metoder.
+
+Metoder i detta interface säger att varje klass som matchar tabeller i en hotell databas ska ärva fråna abstrakta klassen HotelItm.
+
+ISQLRepository Detta interface är kopplingen mellan logiken och klassen som hanterar databasen.
+
+
+______________________________________________________________________________________________________________________________
+public interface ISearchable
+
+Detta intreface ska implementeras av alla klasser som matchar tabeller från databasen.
+
+
+
+
+______________________________________________________________________________________________________________________________
+public IEnumerable<HotelItem> GetAvailableRoom(DateTime checkIn)
+
+ först hämtar vi alla roomId från tabelen Reservation som är större än inchecknings datumet i listan (reservedRoomId), så alla upptagena rum
+ sedan hämtar vi alla roomId från tabelen Room i listan (allRoomId), alla rum
+ sedan gör vi en int lista där lagras alla roomId förutom de rum som är upptagna i listan (availableRoomId)
+ sedan hämtas alla rum från tabelen Room i listan (availableRooms) genom att använda id som lagrades i listan (availableRoomId)
+
+ vi gör en if-sats där vi kollar om listan (availableRooms) är tom eller inte om inte returnerar vi denna listan 
+ och vi gör det för att om det inte finns någon bokning då krashar programmet när vi vill retunera listan (availableRooms)
+
+
+ om det inte finns någon bokning då retunerar vi alla rum 
+
+ 
+______________________________________________________________________________________________________________________________
+ viktig 
+.Om man söker efter en reservation genom MyContains metoden, antingen kan man ge customerId i int form eller reservationId i string form
+.I metoden UpdateData om man vill uppdatera en kund info så som telefon nummer då kan man göra det genom att ange kundens id, kunden måste redan finnas 
+   i ststemet annars det går inte att använda UpdateData metoden.
